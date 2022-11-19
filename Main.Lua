@@ -241,14 +241,6 @@ Rayfield:Notify({
 	end,
 })
 
-local ts = game:GetService("TeleportService")
-
-local p = game:GetService("Players").LocalPlayer
-
- 
-
-ts:Teleport(game.PlaceId, p)
-
 local Button = main:CreateButton({
 	Name = "Rejoin",
 	Callback = function()
@@ -279,6 +271,7 @@ ts:Teleport(game.PlaceId, p)
 							Duration = 6.5,
 							Image = 4483362458,
 						})
+						end
 				}
 			},
 		})
