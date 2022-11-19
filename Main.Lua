@@ -124,3 +124,58 @@ for i,v in pairs(game.Players.LocalPlayer.Character.Humanoid:GetChildren()) do
 		})
 	end,
 })
+
+local Button = main:CreateButton({
+	Name = "Walk on walls",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "Walk on Walls",
+			Content = "Hot key is z",
+			Duration = 6.5,
+			Image = 4483362458,
+			Actions = { -- Notification Buttons
+				Ignore = {
+					Name = "Okay!",
+					Callback = function()
+						loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Walk%20on%20walls", true))()
+					end
+				},
+			},
+		})
+	end,
+})
+
+local Button = main:CreateButton({
+	Name = "Old animations",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "2007",
+			Content = "R6 Only",
+			Duration = 6.5,
+			Image = 4483362458,
+			Actions = { -- Notification Buttons
+				Ignore = {
+					Name = "Okay!",
+					Callback = function()
+						loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Old%20animations", true))()
+					end
+				},
+			},
+		})
+	end,
+})
+
+local Button = main:CreateButton({
+	Name = "Sit Down",
+	Callback = function()
+
+        game.Players['LocalPlayer'].Character.Humanoid.Sit = true 
+
+		Rayfield:Notify({
+			Title = "Sit ur ass down",
+			Content = "u sat ur fat ass down",
+			Duration = 6.5,
+			Image = 4483362458,
+		})
+	end,
+})
