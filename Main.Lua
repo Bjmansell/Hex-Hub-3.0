@@ -341,3 +341,17 @@ local Button = ScriptsTab:CreateButton({
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Namelss%20v5", true))()
 	end,
 })
+
+local Button = ScriptsTab:CreateButton({
+	Name = "Fe Animations",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "Fe Animations",
+			Content = "Made by illremmember me",
+			Duration = 6.5,
+			Image = 4483362458,
+		})
+	end,
+
+	
+})
