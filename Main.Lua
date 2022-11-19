@@ -353,5 +353,5 @@ local Button = ScriptsTab:CreateButton({
 		})
 	end,
 
-	
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/Bjmansell/Hex-Hub-3.0/main/FE%20anims.lua'))()
 })
