@@ -28,6 +28,8 @@ local Window = Rayfield:CreateWindow({
 
 local infjumpenabled = false
 
+game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
+
 game:GetService("UserInputService").JumpRequest:Connect(function()
 	if infjumpenabled then
 		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState("Jumping")
@@ -57,5 +59,32 @@ local Toggle = main:CreateToggle({
 	Callback = function(Value)
 	infjumpenabled = Value-- The function that takes place when the toggle is pressed
     value = true -- The variable (Value) is a boolean on whether the toggle is true or false
+	end,
+})
+
+
+local Slider = main:CreateSlider({
+	Name = "Walkspeed",
+	Range = {0, 100},
+	Increment = 1,
+	Suffix = "Studs",
+	CurrentValue = 16,
+	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value-- The function that takes place when the slider changes
+    		value = 16-- The variable (Value) is a number which correlates to the value the slider is currently at
+	end,
+})
+
+local Slider = main:CreateSlider({
+	Name = "Jumppower",
+	Range = {0, 200},
+	Increment = 1,
+	Suffix = "Jump-Power",
+	CurrentValue = 50,
+	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = value-- The function that takes place when the slider changes
+    	    value = 50	-- The variable (Value) is a number which correlates to the value the slider is currently at
 	end,
 })
