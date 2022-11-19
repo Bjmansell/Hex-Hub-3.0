@@ -1,27 +1,38 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
 local Window = Rayfield:CreateWindow({
-	Name = "Rayfield Example Window",
+	Name = "Hex Hub 3.0",
 	LoadingTitle = "Welcome To Hex Hub",
 	LoadingSubtitle = "by Swax1600",
 	ConfigurationSaving = {
 		Enabled = true,
-		FolderName = nil, -- Create a custom folder for your hub/game
+		FolderName = HH, -- Create a custom folder for your hub/game
 		FileName = "HexHub3.0"
 	},
         Discord = {
-        	Enabled = false,
-        	Invite = "sirius", -- The Discord invite code, do not include discord.gg/
+        	Enabled = true,
+        	Invite = "V9tgFAvpR8", -- invite code only, do not include discord.gg/
         	RememberJoins = true -- Set this to false to make them join the discord every time they load it up
         },
-	KeySystem = true, -- Set this to true to use our key system
+	KeySystem = false, -- on release replace with true!!!!!!
 	KeySettings = {
 		Title = "Hex Hub",
 		Subtitle = "Key System",
-		Note = "Join the discord (discord.gg/sirius)",
+		Note = "Join the discord (discord.gg/V9tgFAvpR8)",
 		FileName = "HHKEY",
 		SaveKey = true,
-		GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-		Key = "Hello"
+		GrabKeyFromSite = false, -- set ket to sit
+		Key = "WRAndB@cKcLuL3oGD767^*DVGYv8rK"
 	}
 })
+
+local Home = Window:CreateTab("Home", 11347112419)
+
+local Section = Home:CreateSection("Home")
+
+local Label = Home:CreateLabel("Created by Swax_0/!!!Swax#2600")
+
+local Label = Home:CreateLabel("Version : 3.0")
+
+
+
