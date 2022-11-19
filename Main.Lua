@@ -323,4 +323,21 @@ ts:Teleport(game.PlaceId, p)
 	end,
 })
 
+local Button = main:CreateButton({
+	Name = "Reset",
+	Callback = function()
+		game.Players.LocalPlayer.Character.Humanoid.Health = 0
+	end,
+})
 
+
+local ScriptsTab = Window:CreateTab("Scripts")
+
+local AnimSection = ScriptsTab:CreateSection("Animations")
+
+local Button = ScriptsTab:CreateButton({
+	Name = "Nameless Animation",
+	Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Namelss%20v5", true))()
+	end,
+})
