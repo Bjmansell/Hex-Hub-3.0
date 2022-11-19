@@ -22,7 +22,7 @@ local Window = Rayfield:CreateWindow({
 		FileName = "HHKEY",
 		SaveKey = true,
 		GrabKeyFromSite = false, -- set ket to sit
-		Key = "kkk"
+		Key = "HH30BETA"
 	}
 })
 
@@ -176,6 +176,111 @@ local Button = main:CreateButton({
 			Content = "u sat ur fat ass down",
 			Duration = 6.5,
 			Image = 4483362458,
+		})
+	end,
+})
+
+local VisualsSection = main:CreateSection("Visuals")
+
+
+
+local Toggle = main:CreateToggle({
+	Name = "Xray",
+	CurrentValue = false,
+	Flag = "Xray", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		if Value then
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v:IsA("BasePart") and not v.Parent.Parent:FindFirstChild("Humanoid") then
+					v.Transparency = v.Transparency + 0.5
+				end
+			end
+		else
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v:IsA("BasePart") and not v.Parent.Parent:FindFirstChild("Humanoid") then
+					v.Transparency = v.Transparency - 0.5
+				end
+			end
+		end-- The function that takes place when the toggle is pressed
+    	value = false	-- The variable (Value) is a boolean on whether the toggle is true or false
+	end,
+})
+
+
+local OtherSection = main:CreateSection("Other")
+
+local Button = main:CreateButton({
+	Name = "2007 Build Tools",
+	Callback = function()
+		for item = 1, 4 do
+			HopperBin = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
+			HopperBin.BinType = item
+		end-- The function that takes place when the button is pressed
+	end,
+})
+
+local Button = main:CreateButton({
+	Name = "Friend all",
+	Callback = function()
+		local obese = game:GetService('Players')
+for _,kachow in pairs(obese:GetPlayers()) do
+obese.LocalPlayer:RequestFriendship(kachow, kachow)
+end
+
+Rayfield:Notify({
+    Title = "Friended all",
+    Content = "Fucking loner",
+    Duration = 6.5,
+    Image = 4483362458,
+    Actions = { -- Notification Buttons
+        Ignore = {
+            Name = "Okay!",
+		},
+	},
+})
+	end,
+})
+
+local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+ 
+
+ts:Teleport(game.PlaceId, p)
+
+local Button = main:CreateButton({
+	Name = "Rejoin",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "rejoin",
+			Content = "Are you sure?",
+			Duration = 6.5,
+			Image = 4483362458,
+			Actions = { -- Notification Buttons
+				Yes = {
+					Name = "Positive",
+					Callback = function()
+						local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+ 
+
+ts:Teleport(game.PlaceId, p)
+					end
+				},
+				No = {
+					Name = "abort",
+					Callback = function()
+						Rayfield:Notify({
+							Title = "Aborted",
+							Content = "rejoin aborted",
+							Duration = 6.5,
+							Image = 4483362458,
+						})
+				}
+			},
 		})
 	end,
 })
