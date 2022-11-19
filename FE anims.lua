@@ -1725,5 +1725,4 @@ FlingArms.MouseButton1Click:connect(function()
 end)
  
 -- Finished update!
-end)
 
