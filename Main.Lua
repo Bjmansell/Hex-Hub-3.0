@@ -22,7 +22,7 @@ local Window = Rayfield:CreateWindow({
 		FileName = "HHKEY",
 		SaveKey = true,
 		GrabKeyFromSite = false, -- set ket to sit
-		Key = "HH30BETA"
+		Key = "1111"
 	}
 })
 
@@ -345,13 +345,6 @@ local Button = ScriptsTab:CreateButton({
 local Button = ScriptsTab:CreateButton({
 	Name = "Fe Animations",
 	Callback = function()
-		Rayfield:Notify({
-			Title = "Fe Animations",
-			Content = "Made by illremmember me",
-			Duration = 6.5,
-			Image = 4483362458,
-		})
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/Bjmansell/Hex-Hub-3.0/main/FE%20anims.lua', true))()
 	end,
-
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/Bjmansell/Hex-Hub-3.0/main/FE%20anims.lua'))()
 })
