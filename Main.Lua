@@ -376,7 +376,13 @@ local Button = ScriptsTab:CreateButton({
 local Button = ScriptsTab:CreateButton({
 	Name = "FE Head Pet",
 	Callback = function()
-		--made by MyWorld#4430
+
+Rayfield:Notify({
+    Title = "FE Head Pet",
+    Content = "Have Fun",
+    Duration = 6.5,
+    Image = 4483362458,
+})
 local petGui = Instance.new("ScreenGui")
 local drag = Instance.new("Frame")
 local label = Instance.new("TextLabel")
@@ -389,10 +395,10 @@ petGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 drag.Name = "drag"
 drag.Parent = petGui
-drag.BackgroundColor3 = Color3.fromRGB(116, 116, 116)
+drag.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
 drag.BorderSizePixel = 0
 drag.Position = UDim2.new(0.5, -150, 0.5, -35)
-drag.Size = UDim2.new(0, 300, 0, 70)
+drag.Size = UDim2.new(0, 350, 0, 100)
 drag.Archivable = true
 drag.Active = true
 drag.Selectable = true
@@ -403,16 +409,16 @@ label.Parent = drag
 label.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 label.BackgroundTransparency = 0.500
 label.BorderSizePixel = 0
-label.Size = UDim2.new(1, 0, 0, 20)
+label.Size = UDim2.new(1, 0, 0, 30)
 label.Font = Enum.Font.SourceSans
-label.Text = "set pet owner"
+label.Text = "Hex Hub Head Pet"
 label.TextColor3 = Color3.fromRGB(255, 255, 255)
 label.TextScaled = true
 label.TextSize = 14.000
 label.TextWrapped = true
 
 TextButton.Parent = label
-TextButton.BackgroundColor3 = Color3.fromRGB(91, 0, 0)
+TextButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 TextButton.BorderSizePixel = 0
 TextButton.Position = UDim2.new(1, -50, 0, 0)
 TextButton.Size = UDim2.new(0, 50, 1, 0)
@@ -433,7 +439,7 @@ otb.BorderSizePixel = 0
 otb.Position = UDim2.new(0, 10, 0, 30)
 otb.Size = UDim2.new(1, -20, 1, -40)
 otb.Font = Enum.Font.SourceSans
-otb.PlaceholderText = "pet owner name"
+otb.PlaceholderText = "Name:"
 otb.Text = ""
 otb.TextColor3 = Color3.fromRGB(255, 255, 255)
 otb.TextSize = 20.000
@@ -527,12 +533,35 @@ if c and c.Parent then
   end
  end
 end
-
-Rayfield:Notify({
-    Title = "FE Head Pet",
-    Content = "Have Fun",
-    Duration = 6.5,
-    Image = 4483362458,
+	end,
 })
+
+local Button = ScriptsTab:CreateButton({
+	Name = "Dog (R6)",
+	Callback = function()
+		
+	end,
+})
+
+local Button = ScriptsTab:CreateButton({
+	Name= "FE Reset",
+	Callback = function()
+		game.Players.LocalPlayer.Character.Humanoid.Name = 1
+local l = game.Players.LocalPlayer.Character["1"]:Clone()
+l.Parent = game.Players.LocalPlayer.Character
+l.Name = "Humanoid"
+wait()
+game.Players.LocalPlayer.Character["1"]:Destroy()
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character.Animate.Disabled = true
+wait()
+game.Players.LocalPlayer.Character.Animate.Disabled = false
+game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+wait()
+local prt = Instance.new("Model", workspace);
+Instance.new("Part", prt).Name="Torso";
+Instance.new("Part", prt).Name="Head";
+Instance.new("Humanoid", prt).Name="Humanoid";
+game.Players.LocalPlayer.Character=prt
 	end,
 })
