@@ -539,7 +539,7 @@ end
 local Button = ScriptsTab:CreateButton({
 	Name = "Dog (R6)",
 	Callback = function()
-		
+		loadstring(game:httpGet('https://raw.githubusercontent.com/Bjmansell/Hex-Hub-3.0/main/R6%20dog'))()
 	end,
 })
 
@@ -565,3 +565,10 @@ Instance.new("Humanoid", prt).Name="Humanoid";
 game.Players.LocalPlayer.Character=prt
 	end,
 })
+
+local Button = ScriptsTab:CreatButton{(
+	Name = "FE Among Us (R6)",
+	Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Among%20us.lua", true))()
+	end,
+)}
