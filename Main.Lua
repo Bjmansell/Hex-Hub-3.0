@@ -18,11 +18,11 @@ local Window = Rayfield:CreateWindow({
 	KeySettings = {
 		Title = "Hex Hub",
 		Subtitle = "Key System",
-		Note = "Join the discord (discord.gg/V9tgFAvpR8)",
+		Note = "The key is 1",
 		FileName = "HHKEY",
 		SaveKey = true,
 		GrabKeyFromSite = false, -- set ket to sit
-		Key = "%$(%&^£&(*%$(^$&*%AJHGK"
+		Key = "1"
 	}
 })
 
@@ -99,92 +99,6 @@ local Slider = main:CreateSlider({
 	Callback = function(Value)
 		game:GetService'Workspace'.Camera.FieldOfView = Value-- The function that takes place when the slider changes
     		Value = 50-- The variable (Value) is a number which correlates to the value the slider is currently at
-	end,
-})
-
---FLY
-
-local toggle = main:CreateToggle({
-Name = "Fly",
-	CurrentValue = false,
-	Flag = "Flytoggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(TFlyEnabled)
-		while TFlyEnabled == true then
-			local Hum,mouse = speaker.Character:FindFirstChildOfClass("Humanoid"),speaker:GetMouse()
-
-				local Core = Instance.new('Part', workspace)
-                Core.Size,Core.CanCollide = Vector3.new(0.05, 0.05, 0.05),false
-				local Trs = Core
-
-                local keys = {a = false, d = false, w = false, s = false}
-                e1 = mouse.KeyDown:Connect(function(key)
-                    if not Trs or not Trs.Parent then e1:disconnect() e2:disconnect() return end
-                        if key == 'w' then
-                            keys.w = true
-                        elseif key == 's' then
-                            keys.s = true
-                        elseif key == 'a' then
-                            keys.a = true
-                        elseif key == 'd' then
-                            keys.d = true
-                    end
-                end)
-                e2 = mouse.KeyUp:Connect(function(key)
-                    if key == 'w' then
-                        keys.w = false
-                    elseif key == 's' then
-                        keys.s = false
-                    elseif key == 'a' then
-                        keys.a = false
-                    elseif key == 'd' then
-                        keys.d = false
-                    end
-                end)
-
-                local Weld = Instance.new('Weld', Core)
-                Weld.Part0,Weld.Part1,Weld.C0 = Core,Hum.RootPart,CFrame.new(0, 0, 0)
-                
-				local pos,gyro = Instance.new('BodyPosition', Trs),Instance.new('BodyGyro', Trs)
-				pos.maxForce,pos.position = Vector3.new(math.huge, math.huge, math.huge),Trs.Position
-				gyro.maxTorque,gyro.cframe = Vector3.new(9e9, 9e9, 9e9),Trs.CFrame
-
-				repeat
-					wait()
-					Hum.PlatformStand = true
-					local new = gyro.cframe - gyro.cframe.p + pos.position
-                        speed = 2
-					if keys.w then
-						new = new + workspace.CurrentCamera.CoordinateFrame.lookVector * speed
-						speed = speed + 0
-					end
-					if keys.s then
-						new = new - workspace.CurrentCamera.CoordinateFrame.lookVector * speed
-						speed = speed + 0
-					end
-					if keys.d then
-						new = new * CFrame.new(speed, 0, 0)
-						speed = speed + 0
-					end
-					if keys.a then
-						new = new * CFrame.new(-speed, 0, 0)
-						speed = speed + 0
-					end
-
-					pos.position = new.p
-					if keys.w then
-						gyro.cframe = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad(speed * 0), 0, 0)
-					elseif keys.s then
-						gyro.cframe = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(math.rad(speed * 0), 0, 0)
-					else
-						gyro.cframe = workspace.CurrentCamera.CoordinateFrame
-					end
-				until TFlyEnabled == false
-				if gyro then gyro:Destroy() end
-				if pos then pos:Destroy() end
-				Hum.PlatformStand = false
-				speed = 10
-			end
-		break
 	end,
 })
 
@@ -652,9 +566,127 @@ game.Players.LocalPlayer.Character=prt
 	end,
 })
 
-local Button = ScriptsTab:CreatButton({
-	Name = "FE Among Us (R6)",
-	Callback = function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Among%20us.lua", true))()
-	end,
+local AimbotTab = Window:CreateTab("Aimbot")
+
+local AimSection = AimbotTab:CreateSection("Aimbot Settings")
+
+local warnAIMBOT = AimbotTab:CreateParagraph({Title = "Aimbot Warning", Content = "This Aimbot script is not made by me however just edited by me HEAVLY so i still did a bit of code however please note this is still not mine and the creators of the script are still responsible for most of the code"})
+
+local AimbotToggle = AimbotTab:CreateToggle({
+	Name = "Aimbot",
+	CurrentValue = false,
+	Flag = "AIMenabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(aimbotenabled)
+		_G.AimbotEnabled = aimbotenabled
+	end,	
 })
+
+local AimbotToggle = AimbotTab:CreateToggle({
+	Name = "Circle Visible",
+	CurrentValue = false,
+	Flag = "CircleVisiblity", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Circleenabled)
+		_G.CircleVisible = Circleenabled
+	end,	
+})
+
+
+local Camera = workspace.CurrentCamera
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local LocalPlayer = Players.LocalPlayer
+local Holding = false
+
+_G.TeamCheck = false -- If set to true then the script would only lock your aim at enemy team members.
+_G.AimPart = "Head" -- Where the aimbot script would lock at.
+_G.Sensitivity = 0 -- How many seconds it takes for the aimbot script to officially lock onto the target's aimpart.
+
+_G.CircleSides = 64 -- How many sides the FOV circle would have.
+_G.CircleColor = Color3.fromRGB(255, 255, 255) -- (RGB) Color that the FOV circle would appear as.
+_G.CircleTransparency = 0.7 -- Transparency of the circle.
+_G.CircleRadius = 80 -- The radius of the circle / FOV.
+_G.CircleFilled = false -- Determines whether or not the circle is filled.
+ -- Determines whether or not the circle is visible.
+_G.CircleThickness = 0 -- The thickness of the circle.
+
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+FOVCircle.Radius = _G.CircleRadius
+FOVCircle.Filled = _G.CircleFilled
+FOVCircle.Color = _G.CircleColor
+FOVCircle.Visible = _G.CircleVisible
+FOVCircle.Radius = _G.CircleRadius
+FOVCircle.Transparency = _G.CircleTransparency
+FOVCircle.NumSides = _G.CircleSides
+FOVCircle.Thickness = _G.CircleThickness
+
+local function GetClosestPlayer()
+	local MaximumDistance = _G.CircleRadius
+	local Target = nil
+
+	for _, v in next, Players:GetPlayers() do
+		if v.Name ~= LocalPlayer.Name then
+			if _G.TeamCheck == true then
+				if v.Team ~= LocalPlayer.Team then
+					if v.Character ~= nil then
+						if v.Character:FindFirstChild("HumanoidRootPart") ~= nil then
+							if v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("Humanoid").Health ~= 0 then
+								local ScreenPoint = Camera:WorldToScreenPoint(v.Character:WaitForChild("HumanoidRootPart", math.huge).Position)
+								local VectorDistance = (Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y) - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
+								
+								if VectorDistance < MaximumDistance then
+									Target = v
+								end
+							end
+						end
+					end
+				end
+			else
+				if v.Character ~= nil then
+					if v.Character:FindFirstChild("HumanoidRootPart") ~= nil then
+						if v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("Humanoid").Health ~= 0 then
+							local ScreenPoint = Camera:WorldToScreenPoint(v.Character:WaitForChild("HumanoidRootPart", math.huge).Position)
+							local VectorDistance = (Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y) - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
+							
+							if VectorDistance < MaximumDistance then
+								Target = v
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
+	return Target
+end
+
+UserInputService.InputBegan:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.MouseButton2 then
+        Holding = true
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.MouseButton2 then
+        Holding = false
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    FOVCircle.Position = Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y)
+    FOVCircle.Radius = _G.CircleRadius
+    FOVCircle.Filled = _G.CircleFilled
+    FOVCircle.Color = _G.CircleColor
+    FOVCircle.Visible = _G.CircleVisible
+    FOVCircle.Radius = _G.CircleRadius
+    FOVCircle.Transparency = _G.CircleTransparency
+    FOVCircle.NumSides = _G.CircleSides
+    FOVCircle.Thickness = _G.CircleThickness
+
+    if Holding == true and _G.AimbotEnabled == true then
+        TweenService:Create(Camera, TweenInfo.new(_G.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, GetClosestPlayer().Character[_G.AimPart].Position)}):Play()
+    end
+end)
