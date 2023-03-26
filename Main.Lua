@@ -18,12 +18,27 @@ local Window = Rayfield:CreateWindow({
 	KeySettings = {
 		Title = "Hex Hub",
 		Subtitle = "Key System",
-		Note = "The key is 1",
+		Note = "Get the key from discord: V9tgFAvpR8",
 		FileName = "HHKEY",
 		SaveKey = true,
-		GrabKeyFromSite = false, -- set ket to site
-		Key = "1"
+		GrabKeyFromSite = true, -- set ket to site
+		Key = "https://raw.githubusercontent.com/Bjmansell/Hex-Hub-3.0/main/Key.txt"
 	}
+})
+
+Rayfield:Notify({
+    Title = "Hex Hub",
+    Content = "V 3.1",
+    Duration = 20,
+    Image = 6711291004,
+    Actions = { -- Notification Buttons
+        Ignore = {
+            Name = "Fuck Off",
+            Callback = function()
+                print("Welcome")
+            end
+		},
+	},
 })
 
 local infjumpenabled = false
@@ -563,6 +578,22 @@ Instance.new("Part", prt).Name="Torso";
 Instance.new("Part", prt).Name="Head";
 Instance.new("Humanoid", prt).Name="Humanoid";
 game.Players.LocalPlayer.Character=prt
+	end,
+})
+
+local AdminSection = ScriptsTab:CreateSection("Admin GUI")
+
+local Button = ScriptsTab:CreateButton({
+	Name = "Infinite Yeild",
+	Callback = function()
+
+		Rayfield:Notify({
+			Title = "Infinite yeild loaded",
+			Content = "infinite yeild like most scripts on here are not made by me",
+			Duration = 6.5,
+		})
+
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 	end,
 })
 
