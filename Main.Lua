@@ -42,11 +42,11 @@ local Section = Home:CreateSection("Home")
 
 local Label = Home:CreateLabel("Created by Swax_0/!!!Swax#2600")
 
-local Label = Home:CreateLabel("Version : 3.0")
+local Label = Home:CreateLabel("Version : 3.1")
 
 local Updates = Home:CreateSection("Updates")
 
-local Updatespara = Home:CreateParagraph({Title = "Updates", Content = ">>WIP<<"})
+local Updatespara = Home:CreateParagraph({Title = "Updates", Content = "added Aimbot/aimbot settings"})
 
 local main = Window:CreateTab("Main")
 
@@ -581,7 +581,7 @@ local AimbotToggle = AimbotTab:CreateToggle({
 	end,	
 })
 
-local AimbotToggle = AimbotTab:CreateToggle({
+local Toggle = AimbotTab:CreateToggle({
 	Name = "Circle Visible",
 	CurrentValue = false,
 	Flag = "CircleVisiblity", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -590,6 +590,26 @@ local AimbotToggle = AimbotTab:CreateToggle({
 	end,	
 })
 
+local Slider = AimbotTab:CreateSlider({
+	Name = "FOV Radius",
+	Range = {50, 200},
+	Increment = 5,
+	Suffix = "Radius",
+	CurrentValue = 80,
+	Flag = "FovSlider", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Circle_Radius)
+		_G.CircleRadius = Circle_Radius
+	end,
+})
+
+local Toggle = AimbotTab:CreateToggle({
+	Name = "Circle Filled",
+	CurrentValue = false,
+	Flag = "CircleFillede", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Circle_Filled)
+		_G.CircleFilled = Circle_Filled
+	end,	
+})
 
 local Camera = workspace.CurrentCamera
 local Players = game:GetService("Players")
@@ -605,9 +625,9 @@ _G.Sensitivity = 0 -- How many seconds it takes for the aimbot script to officia
 
 _G.CircleSides = 64 -- How many sides the FOV circle would have.
 _G.CircleColor = Color3.fromRGB(255, 255, 255) -- (RGB) Color that the FOV circle would appear as.
-_G.CircleTransparency = 0.7 -- Transparency of the circle.
-_G.CircleRadius = 80 -- The radius of the circle / FOV.
-_G.CircleFilled = false -- Determines whether or not the circle is filled.
+_G.CircleTransparency = 0.4 -- Transparency of the circle.
+ -- The radius of the circle / FOV.
+ -- Determines whether or not the circle is filled.
  -- Determines whether or not the circle is visible.
 _G.CircleThickness = 0 -- The thickness of the circle.
 
