@@ -6,13 +6,13 @@ local Window = Rayfield:CreateWindow({
 	LoadingSubtitle = "by Swax1600",
 	ConfigurationSaving = {
 		Enabled = true,
-		FolderName = HH, -- Create a custom folder for your hub/game
+		FolderName = HH,
 		FileName = "HexHub3.0"
 	},
         Discord = {
-        	Enabled = true,
-        	Invite = "V9tgFAvpR8", -- invite code only, do not include discord.gg/
-        	RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+        	Enabled = false,
+        	Invite = "V9tgFAvpR8", --do not include discord.gg/
+        	RememberJoins = true 
         },
 	KeySystem = true, -- on release replace with true!!!!!!
 	KeySettings = {
@@ -21,7 +21,7 @@ local Window = Rayfield:CreateWindow({
 		Note = "The key is 1",
 		FileName = "HHKEY",
 		SaveKey = true,
-		GrabKeyFromSite = false, -- set ket to sit
+		GrabKeyFromSite = false, -- set ket to site
 		Key = "1"
 	}
 })
@@ -710,3 +710,12 @@ RunService.RenderStepped:Connect(function()
         TweenService:Create(Camera, TweenInfo.new(_G.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, GetClosestPlayer().Character[_G.AimPart].Position)}):Play()
     end
 end)
+
+local ESPTab = Window:CreateTab("ESP")
+
+local ESPSection = ESPTab:CreateSection("ESP") 
+--settings
+
+local SettingsTab = Window:CreateTab("Settings")
+
+local SettingsSection = SettingsTab:CreateSection("Settings")
