@@ -1,4 +1,3 @@
-
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
 local Window = Rayfield:CreateWindow({
@@ -15,7 +14,7 @@ local Window = Rayfield:CreateWindow({
         	Invite = "V9tgFAvpR8", --do not include discord.gg/
         	RememberJoins = true 
         },
-	KeySystem = true, -- on release replace with true!!!!!!
+	KeySystem = false, -- on release replace with true!!!!!!
 	KeySettings = {
 		Title = "Hex Hub",
 		Subtitle = "Key System",
@@ -155,6 +154,42 @@ for i,v in pairs(game.Players.LocalPlayer.Character.Humanoid:GetChildren()) do
 			Duration = 6.5,
 			Image = 9015071635,
 		})
+	end,
+})
+
+local Input = main:CreateInput({
+	Name = "Fling",
+	PlaceholderText = "Player Name (Not Display/FULL NAME CAPS ASWELL)",
+	RemoveTextAfterFocusLost = true,
+	Callback = function(Playername)
+		-- Settings
+local Settings = {
+    Target = text -- Target Name (Not display name)
+ }
+ 
+ -- Objects
+ local Players = game:GetService("Players")
+ local RunService = game:GetService("RunService")
+ 
+ local LocalPlayer = Players.LocalPlayer
+ local Target = Players:FindFirstChild(Settings.Target)
+ 
+ local BodyAngularVelocity = Instance.new("BodyAngularVelocity")
+ BodyAngularVelocity.AngularVelocity = Vector3.new(10^6, 10^6, 10^6)
+ BodyAngularVelocity.MaxTorque = Vector3.new(10^6, 10^6, 10^6)
+ BodyAngularVelocity.P = 10^6
+ 
+ -- Start
+ if not Target then return end
+ BodyAngularVelocity.Parent = LocalPlayer.Character.HumanoidRootPart
+ 
+ while Target.Character.HumanoidRootPart and LocalPlayer.Character.HumanoidRootPart do
+    RunService.RenderStepped:Wait()
+    LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * LocalPlayer.Character.HumanoidRootPart.CFrame.Rotation
+    LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new()
+ end
+    
+ BodyAngularVelocity.Parent = nil
 	end,
 })
 
@@ -363,6 +398,78 @@ local Button = main:CreateButton({
 	end,
 })
 
+
+if game.PlaceId==1215581239 then
+
+	Rayfield:Notify({
+		Title = "Game Detected",
+		Content = "DoomSpire Brick Battle script loaded",
+		Duration = 6.5,
+	})
+
+	local DSBBTab = Window:CreateTab("Doomspire") 
+
+	local TeleportSection = DSBBTab:CreateSection("Top of Towers") -- top
+
+	local Button = DSBBTab:CreateButton({
+		Name = "Red Top",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-93,131,-0)
+		end,
+	})
+
+	local Button = DSBBTab:CreateButton({
+		Name = "Blue Top",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,131,94)
+		end,
+	})
+
+	local Button = DSBBTab:CreateButton({
+		Name = "Yellow Top",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(94,131,0)
+		end,
+	})
+
+	local Button = DSBBTab:CreateButton({
+		Name = "Green Top",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1,131,-94)
+		end,
+	})
+
+	local BottomSection = DSBBTab:CreateSection("Bottom Of Towers") --bottom
+
+	local Button = DSBBTab:CreateButton({
+		Name = "Red Bottom",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-131,25,-1.5)
+		end,
+	})
+
+	local Button = DSBBTab:CreateButton({
+		Name = "Blue Bottom",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-0.4,25,131)
+		end,
+	})
+
+	local Button = DSBBTab:CreateButton({
+		Name = "Yellow Bottom",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(131,25,-1.5 )
+		end,
+	})
+
+	local Button = DSBBTab:CreateButton({
+		Name = "Green Bottom",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-0.4,25,-131)
+		end,
+	})
+
+end
 
 local ScriptsTab = Window:CreateTab("Scripts")
 
