@@ -28,8 +28,8 @@ local Window = Rayfield:CreateWindow({
 
 Rayfield:Notify({
     Title = "Hex Hub",
-    Content = "V 3.2",
-    Duration = 20,
+    Content = "V 3.3",
+    Duration = 2,
     Actions = { -- Notification Buttons
         Ignore = {
             Name = "Fuck Off",
@@ -58,11 +58,11 @@ local Section = Home:CreateSection("Home")
 
 local Label = Home:CreateLabel("Created by Swax_0/!!!Swax#2600")
 
-local Label = Home:CreateLabel("Version : 3.2")
+local Label = Home:CreateLabel("Version : 3.3")
 
 local Updates = Home:CreateSection("Updates")
 
-local Updatespara = Home:CreateParagraph({Title = "Updates", Content = "Added Inf Yeild and spin bot/BHOP (Kinda Anti aim)"})
+local Updatespara = Home:CreateParagraph({Title = "Updates", Content = "NOCLIP HASETH BEEN ADDED!!"})
 
 local main = Window:CreateTab("Main")
 
@@ -134,6 +134,27 @@ local Slider = main:CreateSlider({
 	end,
 })
 
+local Toggle = main:CreateToggle({
+	Name = "Noclip",
+	CurrentValue = false,
+	Flag = "Toggle1",
+	Callback = function(Value)
+		_G.noclip = Value
+game.Players.LocalPlayer.Character.Humanoid:ChangeState(7)
+local Loop  game:GetService('RunService').Stepped:connect(function()
+    if _G.noclip then
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:IsA("BasePart") then
+                if v.CanCollide ~= not _G.noclip then
+                    v.CanCollide = not _G.noclip
+                end
+            end
+        end
+    end
+end)
+	end,
+})
+
 local Button = main:CreateButton({
 	Name = "BigHead",
 	Callback = function()
@@ -161,7 +182,7 @@ local Input = main:CreateInput({
 	Name = "Fling",
 	PlaceholderText = "Player Name (Not Display/FULL NAME CAPS ASWELL)",
 	RemoveTextAfterFocusLost = true,
-	Callback = function(Playername)
+	Callback = function(Text)
 		-- Settings
 local Settings = {
     Target = text -- Target Name (Not display name)
