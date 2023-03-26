@@ -22,7 +22,7 @@ local Window = Rayfield:CreateWindow({
 		FileName = "HHKEY",
 		SaveKey = true,
 		GrabKeyFromSite = false, -- set ket to sit
-		Key = "1111"
+		Key = "%$(%&^£&(*%$(^$&*%AJHGK"
 	}
 })
 
