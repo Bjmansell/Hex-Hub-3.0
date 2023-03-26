@@ -317,12 +317,11 @@ local Input = main:CreateInput({
 	PlaceholderText = "Player Name (Not Display/FULL NAME CAPS ASWELL)",
 	RemoveTextAfterFocusLost = true,
 	Callback = function(Text)
-		-- Settings
 local Settings = {
-    Target = text -- Target Name (Not display name)
+    Target = text
  }
  
- -- Objects
+
  local Players = game:GetService("Players")
  local RunService = game:GetService("RunService")
  
@@ -334,7 +333,7 @@ local Settings = {
  BodyAngularVelocity.MaxTorque = Vector3.new(10^6, 10^6, 10^6)
  BodyAngularVelocity.P = 10^6
  
- -- Start
+
  if not Target then return end
  BodyAngularVelocity.Parent = LocalPlayer.Character.HumanoidRootPart
  
