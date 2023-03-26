@@ -29,9 +29,8 @@ local Window = Rayfield:CreateWindow({
 
 Rayfield:Notify({
     Title = "Hex Hub",
-    Content = "V 3.1",
+    Content = "V 3.2",
     Duration = 20,
-    Image = 6711291004,
     Actions = { -- Notification Buttons
         Ignore = {
             Name = "Fuck Off",
@@ -42,9 +41,7 @@ Rayfield:Notify({
 	},
 })
 
-getgenv().spinSpeed = 20
-getgenv().bhop = false
-getgenv().bhopwait = 1
+
 
 local infjumpenabled = false
 
@@ -62,11 +59,11 @@ local Section = Home:CreateSection("Home")
 
 local Label = Home:CreateLabel("Created by Swax_0/!!!Swax#2600")
 
-local Label = Home:CreateLabel("Version : 3.1")
+local Label = Home:CreateLabel("Version : 3.2")
 
 local Updates = Home:CreateSection("Updates")
 
-local Updatespara = Home:CreateParagraph({Title = "Updates", Content = "added Aimbot/aimbot settings"})
+local Updatespara = Home:CreateParagraph({Title = "Updates", Content = "Added Inf Yeild and spin bot/BHOP (Kinda Anti aim)"})
 
 local main = Window:CreateTab("Main")
 
@@ -779,6 +776,10 @@ local Button = AimbotTab:CreateButton({
 local char = game:GetService("Players").LocalPlayer.Character
 local humanoid = char.Humanoid
 local Spin = Instance.new("BodyAngularVelocity")
+
+getgenv().spinSpeed = 20
+getgenv().bhop = false
+getgenv().bhopwait = 1
 
 local SpinSection = AimbotTab:CreateSection("Spin")
 
