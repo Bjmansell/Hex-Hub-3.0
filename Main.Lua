@@ -1,3 +1,4 @@
+
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
 local Window = Rayfield:CreateWindow({
@@ -22,7 +23,7 @@ local Window = Rayfield:CreateWindow({
 		FileName = "HHKEY",
 		SaveKey = true,
 		GrabKeyFromSite = true, -- set ket to site
-		Key = "https://raw.githubusercontent.com/Bjmansell/Hex-Hub-3.0/main/Key.txt"
+		Key = "https://pastebin.com/raw/ZC8Rt6M6"
 	}
 })
 
@@ -40,6 +41,10 @@ Rayfield:Notify({
 		},
 	},
 })
+
+getgenv().spinSpeed = 20
+getgenv().bhop = false
+getgenv().bhopwait = 1
 
 local infjumpenabled = false
 
@@ -64,6 +69,22 @@ local Updates = Home:CreateSection("Updates")
 local Updatespara = Home:CreateParagraph({Title = "Updates", Content = "added Aimbot/aimbot settings"})
 
 local main = Window:CreateTab("Main")
+
+task.spawn(function()
+	while task.wait(bhopwait) do
+		if bhop then
+			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+	end
+end)
+
+function spin()
+	local Spin = Instance.new("BodyAngularVelocity")
+	Spin.Name = "Spinning"
+	Spin.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+	Spin.MaxTorque = Vector3.new(0, math.huge, 0)
+	Spin.AngularVelocity = Vector3.new(0,spinSpeed,0)
+end
 
 local Section = main:CreateSection("Player")
 
@@ -755,6 +776,70 @@ local Button = AimbotTab:CreateButton({
 	end,
 })
 
+local char = game:GetService("Players").LocalPlayer.Character
+local humanoid = char.Humanoid
+local Spin = Instance.new("BodyAngularVelocity")
+
+local SpinSection = AimbotTab:CreateSection("Spin")
+
+local Slider = AimbotTab:CreateSlider({
+	Name = "Spin Speed",
+	Range = {0, 500},
+	Increment = 10,
+	Suffix = "Speed",
+	CurrentValue = 1,
+	Flag = "slider",
+	Callback = function(Value)
+		spinSpeed = Value
+	end,
+})
+
+local Toggle = AimbotTab:CreateToggle({
+	Name = "Spin Bot",
+	CurrentValue = false,
+	Flag = "Toggle1",
+	Callback = function(Value)
+		if Value then
+			spin()
+		else
+			game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Spinning:Destroy()
+		end
+	end,
+})
+
+local bhopsection = AimbotTab:CreateSection("BHop")
+
+local Slider = AimbotTab:CreateSlider({
+	Name = "Bhop Delay",
+	Range = {1, 50},
+	Increment = 0.1,
+	Suffix = "Delay",
+	CurrentValue = 1,
+	Flag = "Slider1",
+	Callback = function(Value)
+		bhopwait = Value
+	end,
+})
+
+local Toggle = AimbotTab:CreateToggle({
+	Name = "Bhop",
+	CurrentValue = false,
+	Flag = "Toggle1",
+	Callback = function(Value)
+		bhop = Value
+	end,
+})
+
 local SettingsTab = Window:CreateTab("Settings")
 
 local SettingsSection = SettingsTab:CreateSection("Settings")
+
+local ColorPicker = SettingsTab:CreateColorPicker({
+    Name = "Color Picker",
+    Color = Color3.fromRGB(255,255,255),
+    Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        -- The function that takes place every time the color picker is moved/changed
+        -- The variable (Value) is a Color3fromRGB value based on which color is selected
+    end
+})
