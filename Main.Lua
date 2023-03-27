@@ -700,7 +700,7 @@ local Button = ScriptsTab:CreateButton({
 })
 
 local Button = ScriptsTab:CreateButton({
-	Name = "Old animations",
+	Name = "2009 Animations",
 	Callback = function()
 		Rayfield:Notify({
 			Title = "2007",
