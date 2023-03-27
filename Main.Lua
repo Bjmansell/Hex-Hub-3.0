@@ -1,3 +1,5 @@
+
+
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
 local Window = Rayfield:CreateWindow({
@@ -313,12 +315,42 @@ for i,v in pairs(game.Players.LocalPlayer.Character.Humanoid:GetChildren()) do
 })
 
 local Input = main:CreateInput({
-	Name = "Fling",
-	PlaceholderText = "Player Name (Not Display/FULL NAME CAPS ASWELL)",
+	Name = "Teleport To Player",
+	PlaceholderText = "Target(Caps needed)",
 	RemoveTextAfterFocusLost = true,
-	Callback = function(Text)
+	Callback = function(Target)
+
+		local function autofill(text)
+			for i,v in pairs(game.Players:GetPlayers()) do
+				if string.find(v.Name, text) then
+					return v.Name
+				end
+			end
+		end
+
+		Target = autofill(Target)
+		local plr1 = game.Players.LocalPlayer.Character
+		local plr2 = game.Workspace:FindFirstChild(Target)
+		plr1.HumanoidRootPart.CFrame = plr2.HumanoidRootPart.CFrame * CFrame.new(0,2,0)
+	end,
+})
+
+local Input = main:CreateInput({
+	Name = "Fling",
+	PlaceholderText = "Player Name (Caps Needed)",
+	RemoveTextAfterFocusLost = true,
+	Callback = function(FlingName)
+
+		function autofill(text)
+			for i,v in pairs(game.Players:GetPlayers()) do
+				if string.find(v.Name, text) then
+					return v.Name
+				end
+			end
+		end
+
 local Settings = {
-    Target = text
+    Target = autofill(FlingName)
  }
  
 
