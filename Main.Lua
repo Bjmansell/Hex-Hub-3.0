@@ -54,18 +54,6 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
 	end
 end)
 
-local Home = Window:CreateTab("Home")
-
-local Section = Home:CreateSection("Home")
-
-local Label = Home:CreateLabel("Created by Swax_0/!!!Swax#2600")
-
-local Label = Home:CreateLabel("Version : 3.3")
-
-local Updates = Home:CreateSection("Updates")
-
-local Updatespara = Home:CreateParagraph({Title = "Updates", Content = "NOCLIP HASETH BEEN ADDED!!"})
-
 local main = Window:CreateTab("Main")
 
 task.spawn(function()
@@ -84,22 +72,77 @@ function spin()
 	Spin.AngularVelocity = Vector3.new(0,spinSpeed,0)
 end
 
+--main
+
+local Section = main:CreateSection("Home")
+
+local Label = main:CreateLabel("Created by Swax_0/!!!Swax#2600")
+
+local Label = main:CreateLabel("Version : 3.3")
+
+local Updates = main:CreateSection("Updates")
+
+local Updatespara = main:CreateParagraph({Title = "Updates", Content = "NOCLIP HASETH BEEN ADDED!!"})
+
 local Section = main:CreateSection("Player")
 
 local Toggle = main:CreateToggle({
 	Name = "Infinite Jump",
 	CurrentValue = false,
-	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Flag = "Toggle1", 
 	Callback = function(Value)
-	infjumpenabled = Value-- The function that takes place when the toggle is pressed
-    value = true -- The variable (Value) is a boolean on whether the toggle is true or false
+	infjumpenabled = Value
+    value = true
+	end,
+})
+
+
+
+ 
+ 
+local Slider = main:CreateSlider({
+	Name = "Walkspeed",
+	Range = {0, 100},
+	Increment = 1,
+	Suffix = "Studs",
+	CurrentValue = 16,
+	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value-- The function that takes place when the slider changes
+    		value = 16-- The variable (Value) is a number which correlates to the value the slider is currently at
+	end,
+})
+
+local Slider = main:CreateSlider({
+	Name = "Jumppower",
+	Range = {0, 200},
+	Increment = 1,
+	Suffix = "Jump-Power",
+	CurrentValue = 50,
+	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = value-- The function that takes place when the slider changes
+    	    value = 50	-- The variable (Value) is a number which correlates to the value the slider is currently at
+	end,
+})
+
+local Slider = main:CreateSlider({
+	Name = "FOV",
+	Range = {30, 120},
+	Increment = 5,
+	Suffix = "FOV",
+	CurrentValue = 50,
+	Flag = "Slider3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		game:GetService'Workspace'.Camera.FieldOfView = Value-- The function that takes place when the slider changes
+    		Value = 50-- The variable (Value) is a number which correlates to the value the slider is currently at
 	end,
 })
 
 local FlightToggle = main:CreateToggle({
     Name = "Fly ",
     CurrentValue = false,
-    Flag = "FlyToggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Flag = "FlyToggle",
     Callback = function(Value)
         getgenv().Fly = Value
         local Max = 0
@@ -140,7 +183,7 @@ if Fly then
                    wait()
                    LP.Character.Humanoid.PlatformStand = true
                    if S.L + S.R ~= 0 or S.F + S.B ~= 0 then
-                       SPEED = 200
+                       SPEED = 100
                    elseif not (S.L + S.R ~= 0 or S.F + S.B ~= 0) and SPEED ~= 0 then
                        SPEED = 0
                    end
@@ -229,47 +272,6 @@ end
     end,
  })
 
- 
- 
-local Slider = main:CreateSlider({
-	Name = "Walkspeed",
-	Range = {0, 100},
-	Increment = 1,
-	Suffix = "Studs",
-	CurrentValue = 16,
-	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Value)
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value-- The function that takes place when the slider changes
-    		value = 16-- The variable (Value) is a number which correlates to the value the slider is currently at
-	end,
-})
-
-local Slider = main:CreateSlider({
-	Name = "Jumppower",
-	Range = {0, 200},
-	Increment = 1,
-	Suffix = "Jump-Power",
-	CurrentValue = 50,
-	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(value)
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = value-- The function that takes place when the slider changes
-    	    value = 50	-- The variable (Value) is a number which correlates to the value the slider is currently at
-	end,
-})
-
-local Slider = main:CreateSlider({
-	Name = "FOV",
-	Range = {30, 120},
-	Increment = 5,
-	Suffix = "FOV",
-	CurrentValue = 50,
-	Flag = "Slider3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Value)
-		game:GetService'Workspace'.Camera.FieldOfView = Value-- The function that takes place when the slider changes
-    		Value = 50-- The variable (Value) is a number which correlates to the value the slider is currently at
-	end,
-})
-
 local Toggle = main:CreateToggle({
 	Name = "Noclip",
 	CurrentValue = false,
@@ -291,32 +293,11 @@ end)
 	end,
 })
 
-local Button = main:CreateButton({
-	Name = "BigHead",
-	Callback = function()
-	--  ((Packed with care by sysGhost/BiKode))
---  Remember to use R15 with Rthro avatar(head) and scale ur head at max
 
-for i,v in pairs(game.Players.LocalPlayer.Character.Humanoid:GetChildren()) do
-    if string.find(v.Name,"Scale") and v.Name ~= "HeadScale" then
-        repeat wait(HeadGrowSpeed) until game.Players.LocalPlayer.Character.Head:FindFirstChild("OriginalSize")
-        game.Players.LocalPlayer.Character.Head.OriginalSize:Destroy()
-        v:Destroy()
-        game.Players.LocalPlayer.Character.Head:WaitForChild("OriginalSize")
-    end
- end
-		Rayfield:Notify({
-			Title = "Bighead",
-			Content = "Make sure you are wearing a Rthro head at max size",
-			Duration = 6.5,
-			Image = 9015071635,
-		})
-	end,
-})
 
 local Input = main:CreateInput({
 	Name = "Teleport To Player",
-	PlaceholderText = "Target(Caps needed)",
+	PlaceholderText = "Target",
 	RemoveTextAfterFocusLost = true,
 	Callback = function(Target)
 
@@ -337,7 +318,7 @@ local Input = main:CreateInput({
 
 local Input = main:CreateInput({
 	Name = "Fling",
-	PlaceholderText = "Player Name (Caps Needed)",
+	PlaceholderText = "Target",
 	RemoveTextAfterFocusLost = true,
 	Callback = function(FlingName)
 
@@ -376,6 +357,11 @@ local Settings = {
  end
     
  BodyAngularVelocity.Parent = nil
+ Rayfield:Notify({
+	Title = "Fling",
+	Content = "Flinging, " + settings.Target,
+	Duration = 6.5,
+})
 	end,
 })
 
@@ -400,39 +386,14 @@ local Button = main:CreateButton({
 })
 
 local Button = main:CreateButton({
-	Name = "Old animations",
-	Callback = function()
-		Rayfield:Notify({
-			Title = "2007",
-			Content = "R6 Only",
-			Duration = 6.5,
-			Image = 4483362458,
-			Actions = { -- Notification Buttons
-				Ignore = {
-					Name = "Okay!",
-					Callback = function()
-						loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Old%20animations", true))()
-					end
-				},
-			},
-		})
-	end,
-})
-
-local Button = main:CreateButton({
 	Name = "Sit Down",
 	Callback = function()
 
         game.Players['LocalPlayer'].Character.Humanoid.Sit = true 
-
-		Rayfield:Notify({
-			Title = "Sit ur ass down",
-			Content = "u sat ur fat ass down",
-			Duration = 6.5,
-			Image = 4483362458,
-		})
 	end,
 })
+
+local Paragraph = main:CreateParagraph({Title = "Anti Exploiter", Content = "Stops you from being voided by other exploiters"})
 
 local Toggle = main:CreateToggle({
 	Name = "Anti Exploiter",
@@ -739,6 +700,26 @@ local Button = ScriptsTab:CreateButton({
 })
 
 local Button = ScriptsTab:CreateButton({
+	Name = "Old animations",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "2007",
+			Content = "R6 Only",
+			Duration = 6.5,
+			Image = 4483362458,
+			Actions = { -- Notification Buttons
+				Ignore = {
+					Name = "Okay!",
+					Callback = function()
+						loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Old%20animations", true))()
+					end
+				},
+			},
+		})
+	end,
+})
+
+local Button = ScriptsTab:CreateButton({
 	Name = "Fe Animations",
 	Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/Bjmansell/Hex-Hub-3.0/main/FE%20anims.lua', true))()
@@ -746,6 +727,26 @@ local Button = ScriptsTab:CreateButton({
 })
 
 local FeSection = ScriptsTab:CreateSection("Fe Scripts")
+
+local Button = ScriptsTab:CreateButton({
+	Name = "BigHead",
+	Callback = function()
+
+for i,v in pairs(game.Players.LocalPlayer.Character.Humanoid:GetChildren()) do
+    if string.find(v.Name,"Scale") and v.Name ~= "HeadScale" then
+        repeat wait(HeadGrowSpeed) until game.Players.LocalPlayer.Character.Head:FindFirstChild("OriginalSize")
+        game.Players.LocalPlayer.Character.Head.OriginalSize:Destroy()
+        v:Destroy()
+        game.Players.LocalPlayer.Character.Head:WaitForChild("OriginalSize")
+    end
+ end
+		Rayfield:Notify({
+			Title = "Bighead",
+			Content = "Make sure you are wearing a Rthro head at max size",
+			Duration = 2,
+		})
+	end,
+})
 
 local Button = ScriptsTab:CreateButton({
 	Name = "Chat Art",
