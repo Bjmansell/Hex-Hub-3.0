@@ -615,6 +615,124 @@ local Button = main:CreateButton({
 	end,
 })
 
+if game.PlaceId==2897155393 then
+
+	Rayfield:Notify({
+		Title = "Game Detected",
+		Content = "Welcome To Roblox Building script loaded",
+		Duration = 6.5,
+	})
+
+	local WTRBTab = Window:CreateTab("WTRB")
+
+	local CopySection = WTRBTab:CreateSection("Copy plot")
+
+	local Stamp = game.ReplicatedStorage.BuildingBridge.Stamp
+
+	function findPlot(n)
+		for _,v in pairs(workspace.BuildingAreas:GetChildren()) do
+			if v.Player.Value == n then
+				return v.PlayerArea
+			end
+		end
+		return nil
+	end
+	local Base = findPlot(game.Players.LocalPlayer.Name).BasePlate
+	
+	function getModels(p)
+		local t = {}
+		for i,v in pairs(p:GetChildren()) do
+			if v:IsA("Model") and v:FindFirstChild("SaveCFrame") then
+				t[i - 1] = {AssetId = v.AssetId.Value, SaveCFrame = v.SaveCFrame.Value}
+			end
+		end
+		return t
+	end
+	
+	function findTime(s)
+		return string.format("%02i:%02i:%02i", s/60^2, s/60%60, s%60)
+	end
+
+	local Input = WTRBTab:CreateInput({
+		Name = "Copy Plot",
+		PlaceholderText = "Victim",
+		RemoveTextAfterFocusLost = false,
+		Callback = function(Victim)
+			local p = findPlot(Victim)
+
+			local Copying = false
+	
+	if not Debounce then
+		Debounce = true
+		
+		if p == nil then
+			Rayfield:Notify({
+				Title = "Player Not Found",
+				Content = "The player was not found",
+				Duration = 6.5,
+			})
+			Debounce = false
+			return
+		end
+
+		Copying = true
+		local Models = getModels(p)
+		local Amount = #Models
+		if Amount <= 1 then
+			Rayfield:Notify({
+				Title = "Nothing to copy",
+				Content = "",
+				Duration = 6.5,
+			})
+			wait(1.5)
+			Debounce = false
+			return
+		end
+
+		local Time = tick()
+		local bp = p.BasePlate:Clone()
+		bp.Parent = workspace
+		bp.Transparency = 1
+		local i = 1
+		repeat
+			if Models[i] ~= nil and Models[i].SaveCFrame ~= nil then
+				local cs = bp.CFrame:ToObjectSpace(Models[i].SaveCFrame)
+				local c = Base.CFrame:ToWorldSpace(cs)
+				Stamp:InvokeServer(Models[i].AssetId, c)
+			end
+			i = i + 1
+			if d ~= nil and d > 0 then wait(d) end
+		until i == Amount or not Copying
+		bp:Destroy()
+		Copying = false
+		Time = nil
+		wait(2)
+		Debounce = false
+	end
+
+		end,
+	})
+
+	local Input = WTRBTab:CreateInput({
+		Name = "Delay",
+		PlaceholderText = "Time",
+		RemoveTextAfterFocusLost = false,
+		Callback = function(delay)
+			local d = tonumber(delay)
+		end,
+	})
+
+	local Button = WTRBTab:CreateButton({
+		Name = "Cancel",
+		Callback = function()
+			if Copying then
+				Copying = false
+			end
+
+		end,
+	})
+
+end
 
 if game.PlaceId==1215581239 then
 
