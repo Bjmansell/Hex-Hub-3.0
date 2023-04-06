@@ -1110,6 +1110,38 @@ local AimSection = AimbotTab:CreateSection("Aimbot Settings")
 
 local warnAIMBOT = AimbotTab:CreateParagraph({Title = "Aimbot Warning", Content = "Aimbot is Broken At the momment :) Will be fixed soon luv u!"})
 
+
+local Toggle = AimbotTab:CreateToggle({
+	Name = "Aimbot",
+	CurrentValue = false,
+	Flag = "Toggle1", 
+	Callback = function(Value)
+		_G.AimbotEnabled = Value
+	end,
+})
+
+local Toggle = AimbotTab:CreateToggle({
+	Name = "Team Check",
+	CurrentValue = false,
+	Flag = "Toggle1", 
+	Callback = function(Value)
+		_G.TeamCheck = Value
+	end,
+})
+
+local Slider = AimbotTab:CreateSlider({
+	Name = "Sensitivity",
+	Range = {0, 10},
+	Increment = 1,
+	Suffix = "Sensitivity",
+	CurrentValue = 10,
+	Flag = "Slider1", 
+	Callback = function(Value)
+		_G.Sensitivity = Value
+	end,
+})
+
+
 local Camera = workspace.CurrentCamera
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -1118,17 +1150,35 @@ local TweenService = game:GetService("TweenService")
 local LocalPlayer = Players.LocalPlayer
 local Holding = false
 
-_G.AimbotEnabled = false
-_G.TeamCheck = false -- If set to true then the script would only lock your aim at enemy team members.
-_G.AimPart = "Head" -- Where the aimbot script would lock at.
-_G.Sensitivity = 0 -- How many seconds it takes for the aimbot script to officially lock onto the target's aimpart.
+
+_G.AimPart = "Head"
+
 
 _G.CircleSides = 64 -- How many sides the FOV circle would have.
 _G.CircleColor = Color3.fromRGB(255, 255, 255) -- (RGB) Color that the FOV circle would appear as.
 _G.CircleTransparency = 0.7 -- Transparency of the circle.
-_G.CircleRadius = 80 -- The radius of the circle / FOV.
+ -- The radius of the circle / FOV.
+local Slider = AimbotTab:CreateSlider({
+	Name = "Circle Radius",
+	Range = {0, 110},
+	Increment = 1,
+	Suffix = "Radius",
+	CurrentValue = 10,
+	Flag = "Slider1", 
+	Callback = function(Value)
+		_G.CircleRadius = Value
+	end,
+})
 _G.CircleFilled = false -- Determines whether or not the circle is filled.
-_G.CircleVisible = true -- Determines whether or not the circle is visible.
+ -- Determines whether or not the circle is visible.
+local Toggle = AimbotTab:CreateToggle({
+	Name = "Circle Visible",
+	CurrentValue = false,
+	Flag = "Toggle1", 
+	Callback = function(Value)
+		_G.CircleVisible = Value
+	end,
+})
 _G.CircleThickness = 0 -- The thickness of the circle.
 
 local FOVCircle = Drawing.new("Circle")
