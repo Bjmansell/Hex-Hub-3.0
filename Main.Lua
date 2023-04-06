@@ -1,5 +1,5 @@
 
-
+local Sense = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Sirius/request/library/sense/source.lua'))()
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
 local Window = Rayfield:CreateWindow({
@@ -658,7 +658,16 @@ if game.PlaceId==2897155393 then
 		PlaceholderText = "Victim",
 		RemoveTextAfterFocusLost = false,
 		Callback = function(Victim)
-			local p = findPlot(Victim)
+
+			function autofill(text)
+				for i,v in pairs(game.Players:GetPlayers()) do
+					if string.find(v.Name, text) then
+						return v.Name
+					end
+				end
+			end
+
+			local p = findPlot(autofill(Victim))
 
 			local Copying = false
 	
@@ -725,9 +734,7 @@ if game.PlaceId==2897155393 then
 	local Button = WTRBTab:CreateButton({
 		Name = "Cancel",
 		Callback = function()
-			if Copying then
-				Copying = false
-			end
+			Copying = false
 
 		end,
 	})
@@ -1101,46 +1108,7 @@ local AimbotTab = Window:CreateTab("Aimbot")
 
 local AimSection = AimbotTab:CreateSection("Aimbot Settings")
 
-local warnAIMBOT = AimbotTab:CreateParagraph({Title = "Aimbot Warning", Content = "This Aimbot script is not made by me however just edited by me HEAVLY so i still did a bit of code however please note this is still not mine and the creators of the script are still responsible for most of the code"})
-
-local AimbotToggle = AimbotTab:CreateToggle({
-	Name = "Aimbot",
-	CurrentValue = false,
-	Flag = "AIMenabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(aimbotenabled)
-		_G.AimbotEnabled = aimbotenabled
-	end,	
-})
-
-local Toggle = AimbotTab:CreateToggle({
-	Name = "Circle Visible",
-	CurrentValue = false,
-	Flag = "CircleVisiblity", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Circleenabled)
-		_G.CircleVisible = Circleenabled
-	end,	
-})
-
-local Slider = AimbotTab:CreateSlider({
-	Name = "FOV Radius",
-	Range = {50, 200},
-	Increment = 5,
-	Suffix = "Radius",
-	CurrentValue = 80,
-	Flag = "FovSlider", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Circle_Radius)
-		_G.CircleRadius = Circle_Radius
-	end,
-})
-
-local Toggle = AimbotTab:CreateToggle({
-	Name = "Circle Filled",
-	CurrentValue = false,
-	Flag = "CircleFillede", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Circle_Filled)
-		_G.CircleFilled = Circle_Filled
-	end,	
-})
+local warnAIMBOT = AimbotTab:CreateParagraph({Title = "Aimbot Warning", Content = "Aimbot is Broken At the momment :) Will be fixed soon luv u!"})
 
 local Camera = workspace.CurrentCamera
 local Players = game:GetService("Players")
@@ -1150,16 +1118,17 @@ local TweenService = game:GetService("TweenService")
 local LocalPlayer = Players.LocalPlayer
 local Holding = false
 
+_G.AimbotEnabled = false
 _G.TeamCheck = false -- If set to true then the script would only lock your aim at enemy team members.
 _G.AimPart = "Head" -- Where the aimbot script would lock at.
 _G.Sensitivity = 0 -- How many seconds it takes for the aimbot script to officially lock onto the target's aimpart.
 
 _G.CircleSides = 64 -- How many sides the FOV circle would have.
 _G.CircleColor = Color3.fromRGB(255, 255, 255) -- (RGB) Color that the FOV circle would appear as.
-_G.CircleTransparency = 0.4 -- Transparency of the circle.
- -- The radius of the circle / FOV.
- -- Determines whether or not the circle is filled.
- -- Determines whether or not the circle is visible.
+_G.CircleTransparency = 0.7 -- Transparency of the circle.
+_G.CircleRadius = 80 -- The radius of the circle / FOV.
+_G.CircleFilled = false -- Determines whether or not the circle is filled.
+_G.CircleVisible = true -- Determines whether or not the circle is visible.
 _G.CircleThickness = 0 -- The thickness of the circle.
 
 local FOVCircle = Drawing.new("Circle")
@@ -1312,6 +1281,89 @@ local Toggle = AimbotTab:CreateToggle({
 		bhop = Value
 	end,
 })
+
+local EspTab = Window:CreateTab("ESP")
+
+local ESPSection = EspTab:CreateSection("Enemy")
+
+
+
+local Toggle = EspTab:CreateToggle({
+	Name = "Use Team Color",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		Sense.sharedSettings.useTeamColor = Value
+	end,
+})
+
+local Toggle = EspTab:CreateToggle({
+	Name = "Enemy Enabled",
+	CurrentValue = false,
+	Flag = "Toggle1", 
+	Callback = function(Value)
+		Sense.teamSettings.enemy.enabled = Value
+	end,
+})
+
+local Toggle = EspTab:CreateToggle({
+	Name = "Box",
+	CurrentValue = false,
+	Flag = "Toggle1", 
+	Callback = function(Value)
+		Sense.teamSettings.enemy.box = Value
+		Sense.teamSettings.enemy.boxOutline = Value
+	end,
+})
+
+local ColorPicker = EspTab:CreateColorPicker({
+    Name = "Enemy Box Color",
+    Color = Color3.fromRGB(255,255,255),
+    Flag = "ColorPicker1", 
+    Callback = function(Value)
+        Sense.teamSettings.enemy.boxColor[1] = Value
+		Sense.teamSettings.enemy.boxOutlineColor[1] = Value
+    end
+})
+
+local Toggle = EspTab:CreateToggle({
+	Name = "Chams",
+	CurrentValue = false,
+	Flag = "Toggle1", 
+	Callback = function(Value)
+		Sense.teamSettings.enemy.chams = Value
+	end,
+})
+
+local ColorPicker = EspTab:CreateColorPicker({
+    Name = "Enemy Chams Color",
+    Color = Color3.fromRGB(255,255,255),
+    Flag = "ColorPicker1", 
+    Callback = function(Value)
+        Sense.teamSettings.enemy.chamsFillColor[1] = Value
+		Sense.teamSettings.enemy.chamsOutlineColor[1] = Value
+    end
+})
+
+local Toggle = EspTab:CreateToggle({
+	Name = "Names",
+	CurrentValue = false,
+	Flag = "Toggle1", 
+	Callback = function(Value)
+		Sense.teamSettings.enemy.name = Value
+	end,
+})
+
+local Toggle = EspTab:CreateToggle({
+	Name = "Distance",
+	CurrentValue = false,
+	Flag = "Toggle1", 
+	Callback = function(Value)
+		Sense.teamSettings.enemy.distance = Value
+	end,
+})
+
+Sense.Load()
 
 local SettingsTab = Window:CreateTab("Settings")
 
